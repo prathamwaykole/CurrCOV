@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>Live CC App By Pratham</title>
+<style>
+*{font-size:3vw;font-style:Calibri;}
+body{background-color:lightyellow;}
+h1{ background-color:black;color:white;width:70%;color:red;>
+h2{width:70%;border:solid;border-radius:40px;border-color:red;}
+</style>
+<body>
+<center>
+<h1>Live CC App</h1>
+<form onsubmit="convert()">
+<label for = "amt">$</label>
+<input type="number" step="any" id="amt" placeholder="Enter amt in $"/>
+</br></br>
+<input type="submit" value="Convert to ₹"/>
+</form>
+<h2 id = "msg"/>
+<script>
+function convert()
+{
+event.preventDefault();
+let msg = document.getElementById("msg");
+let amt = document.getElementById("amt");
+
+if(amt.value === "")
+{
+alert("please enter the number");
+msg.innerHTML="";
+amt.focus();
+return;
+}
+let url = "https://api.exchangerate-api.com/v4/latest/USD";
+fetch(url)
+.then (res => res.json())
+.then(data =>{
+let dollar = data.rates.INR;
+let aid = parseFloat(amt.value);
+let air = aid*dollar;
+let a = "₹" + air.toFixed(2);
+msg.innerHTML = a;
+})
+.catch(err =>{
+msg.innerHTML = "issue" + err;
+})
+}
+</script>
+</center>
+</body>
+</html>
+
